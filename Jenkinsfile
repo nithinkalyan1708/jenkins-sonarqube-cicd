@@ -11,20 +11,20 @@ pipeline {
 
         stage('Build') {
             steps {
-                bat 'mvnw.cmd clean package'
+                bat '"C:\\apache-maven-3.9.16\\bin\\mvn.cmd" package'
             }
         }
 
         stage('Test') {
             steps {
-                bat 'mvnw.cmd test'
+                bat '"C:\\apache-maven-3.9.16\\bin\\mvn.cmd" test'
             }
         }
 
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('SonarQube') {
-                    bat 'mvnw.cmd sonar:sonar -Dsonar.projectKey=jenkins-sonarqube-cicd'
+                    bat '"C:\\apache-maven-3.9.16\\bin\\mvn.cmd" sonar:sonar -Dsonar.projectKey=jenkins-sonarqube-cicd'
                 }
             }
         }
@@ -34,6 +34,7 @@ pipeline {
         success {
             echo 'Build, tests, and SonarQube analysis completed successfully!'
         }
+
         failure {
             echo 'Pipeline failed. Check the console output.'
         }
