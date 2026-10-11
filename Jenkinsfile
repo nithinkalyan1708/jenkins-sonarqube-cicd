@@ -10,7 +10,12 @@ pipeline {
 
         stage('Build') {
             steps {
-                bat 'cmd.exe /d /c ""C:\\apache-maven-3.9.16\\bin\\mvn.cmd" package"'
+                bat 'echo Checking Windows command execution'
+                bat 'where cmd.exe'
+                bat 'where java.exe'
+                bat 'java -version'
+                bat 'cmd.exe /d /c "echo CMD execution works"'
+                bat 'cmd.exe /d /c "C:\\apache-maven-3.9.16\\bin\\mvn.cmd --version"'
             }
         }
 
