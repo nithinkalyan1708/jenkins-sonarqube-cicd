@@ -1,3 +1,4 @@
+
 pipeline {
     agent any
 
@@ -19,11 +20,19 @@ pipeline {
                 bat 'mvnw.cmd test'
             }
         }
+
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('SonarQube') {
+                    bat 'mvnw.cmd sonar:sonar -Dsonar.projectKey=jenkins-sonarqube-cicd'
+                }
+            }
+        }
     }
 
     post {
         success {
-            echo 'Build and tests completed successfully!'
+            echo 'Build, tests, and SonarQube analysis completed successfully!'
         }
         failure {
             echo 'Pipeline failed. Check the console output.'
