@@ -1,5 +1,4 @@
-
-pipeline {
+﻿pipeline {
     agent any
 
     stages {
@@ -11,20 +10,20 @@ pipeline {
 
         stage('Build') {
             steps {
-                bat '"C:\\apache-maven-3.9.16\\bin\\mvn.cmd" package'
+                bat 'cmd.exe /d /c ""C:\\apache-maven-3.9.16\\bin\\mvn.cmd" package"'
             }
         }
 
         stage('Test') {
             steps {
-                bat '"C:\\apache-maven-3.9.16\\bin\\mvn.cmd" test'
+                bat 'cmd.exe /d /c ""C:\\apache-maven-3.9.16\\bin\\mvn.cmd" test"'
             }
         }
 
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('SonarQube') {
-                    bat '"C:\\apache-maven-3.9.16\\bin\\mvn.cmd" sonar:sonar -Dsonar.projectKey=jenkins-sonarqube-cicd'
+                    bat 'cmd.exe /d /c ""C:\\apache-maven-3.9.16\\bin\\mvn.cmd" sonar:sonar -Dsonar.projectKey=jenkins-sonarqube-cicd"'
                 }
             }
         }
